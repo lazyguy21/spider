@@ -21,12 +21,14 @@ public class Producer implements Runnable {
     LinkedBlockingQueue<String> toCrawlURL;
     //已爬的url链接
     LinkedBlockingQueue<String> crawledURL;
+    String urlCandidate;
 
-    public Producer(LinkedBlockingQueue<String> toSaveQueue, LinkedBlockingQueue<String> savedQueue, LinkedBlockingQueue<String> toCrawlURL,  LinkedBlockingQueue<String> crawledURL) {
+    public Producer(String urlCandidate,LinkedBlockingQueue<String> toSaveQueue, LinkedBlockingQueue<String> savedQueue, LinkedBlockingQueue<String> toCrawlURL,  LinkedBlockingQueue<String> crawledURL) {
         this.toSaveQueue = toSaveQueue;
         this.savedQueue = savedQueue;
         this.toCrawlURL = toCrawlURL;
         this.crawledURL = crawledURL;
+        this.urlCandidate = urlCandidate;
     }
 
     @Override
@@ -34,12 +36,12 @@ public class Producer implements Runnable {
 //        String url = "http://www.tuicool.com/articles/QfEri2";
 
         try {
-            String url = toCrawlURL.poll();
-            Connection connect = Jsoup.connect(url);
+//            String url = toCrawlURL.poll();
+            Connection connect = Jsoup.connect(urlCandidate);
             Document document = connect.get();
             processImageTag(document);
             processURLTag(document);
-            crawledURL.offer(url);
+            crawledURL.offer(urlCandidate);
         } catch (IOException e) {
             e.printStackTrace();
         }

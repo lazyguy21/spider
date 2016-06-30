@@ -20,17 +20,18 @@ public class Consumer implements Runnable{
     LinkedBlockingQueue<String> toSaveQueue;
     //已经保存过的图片url
     LinkedBlockingQueue<String> savedQueue;
-    public Consumer(LinkedBlockingQueue<String> toSaveQueue, LinkedBlockingQueue<String> savedQueue) {
+    String urlCandidate;
+    public Consumer(String urlCandidate,LinkedBlockingQueue<String> toSaveQueue, LinkedBlockingQueue<String> savedQueue) {
         this.toSaveQueue = toSaveQueue;
         this.savedQueue = savedQueue;
+        this.urlCandidate=urlCandidate;
     }
 
     @Override
     public void run() {
         try {
-            String imageUrl = toSaveQueue.poll();
-            imageExtractor(imageUrl);
-            savedQueue.offer(imageUrl);
+            imageExtractor(urlCandidate);
+            savedQueue.offer(urlCandidate);
         } catch (IOException e) {
             e.printStackTrace();
         }
