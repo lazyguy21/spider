@@ -1,0 +1,22 @@
+group 'org.yyf'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+    compile 'org.jsoup:jsoup:1.9.2'
+
+    //httpclient
+    compile 'org.apache.httpcomponents:httpclient:4.5.2'
+    compile 'org.apache.httpcomponents:fluent-hc:4.5.2'
+    compile 'org.apache.httpcomponents:httpclient-cache:4.5.2'
+    compile 'org.apache.httpcomponents:httpmime:4.5.2'
+
+}
